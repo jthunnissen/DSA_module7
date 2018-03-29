@@ -11,7 +11,7 @@ app = Flask(__name__)
 api = Api(app)
 
 string_cols = ['sample_uuid']
-int_cols = ['user_type','org_facebook','org_twitter']
+int_cols = ['user_type','org_facebook','org_twitter', 'user_age']
 
 parser = reqparse.RequestParser()
 for col in string_cols:
@@ -30,7 +30,7 @@ class Predict(Resource):
         arguments = parser.parse_args()
         
         data_input = pd.DataFrame(arguments, index=[0])
-        input = data_input[['user_type','org_facebook','org_twitter']]
+        input = data_input[['user_type','org_facebook','org_twitter', 'user_age']]
         label = self.model.predict(input)[0]
         
         result = {
@@ -41,7 +41,7 @@ class Predict(Resource):
         return jsonify(**result)
 
     def load_model(self):
-        model = joblib.load('regressie.plk')
+        model = joblib.load('regressie_2.plk')
         return model
 
 
