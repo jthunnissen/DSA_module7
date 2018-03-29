@@ -29,7 +29,7 @@ class Predict(Resource):
         result = {
             'sample_uuid': arguments['sample_uuid'],
             'probability': 0.5,
-            'label': 1.0
+            'label': 0.0
         }
         return jsonify(**result)
 
